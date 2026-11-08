@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no"
+  />
+  <title>Live Poster - Postere cu realitate augmentată</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <main class="shell">
+    <section class="stage" aria-live="polite">
+      <div id="ar-container"></div>
+
+      <div id="statusOverlay" class="status show">
+        <div class="status-content">
+          <div class="loader" id="loader"></div>
+          <p id="statusText">Se descarcă motorul AR...</p>
+          <button class="tap-start" id="tapStart" style="display:none;">START</button>
+          <div class="loading-progress" id="loadingProgress">
+            <h3>Se încarcă resursele</h3>
+            <div id="loadingItems">
+              <div class="loading-item loading">
+                <span class="loading-icon loading">◌</span>
+                <span class="loading-label">Codul motorului AR</span>
+                <span class="loading-size">~2.6 MB</span>
+              </div>
+              <div class="loading-item pending">
+                <span class="loading-icon pending">○</span>
+                <span class="loading-label">Acces la cameră</span>
+              </div>
+              <div class="loading-item pending">
+                <span class="loading-icon pending">○</span>
+                <span class="loading-label">Date țintă AR</span>
+                <span class="loading-size">2.0 MB</span>
+              </div>
+              <div class="loading-item pending">
+                <span class="loading-icon pending">○</span>
+                <span class="loading-label">Videoclipuri (4)</span>
+                <span class="loading-size">6.5 MB</span>
+              </div>
+              <div class="loading-item pending">
+                <span class="loading-icon pending">○</span>
+                <span class="loading-label">Imagini de referință</span>
+                <span class="loading-size">252 KB</span>
+              </div>
+            </div>
+            <div class="loading-total">
+              <span class="loading-total-label">Progres</span>
+              <span class="loading-total-value" id="loadingPercent">0/5 (0%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    window.onerror = function(msg, url, line, col, error) {
+      var statusText = document.getElementById('statusText');
+      var loader = document.getElementById('loader');
+      if (statusText) {
+        statusText.innerHTML = '<strong>Eroare:</strong> ' + (msg || 'Încărcarea a eșuat. Încearcă să actualizezi browserul.');
+        if (loader) loader.style.display = 'none';
+      }
+      return false;
+    };
+    
+    if (!('importmap' in HTMLScriptElement.prototype || document.querySelector('script[type="importmap"]'))) {
+      var statusText = document.getElementById('statusText');
+      if (statusText) {
+        statusText.innerHTML = '<strong>Browser neacceptat.</strong><br>Folosește Chrome 89+, Safari 16.4+ sau Firefox 108+.';
+        document.getElementById('loader').style.display = 'none';
+      }
+    }
+  </script>
+  <script type="module" src="./js/app.js" onerror="document.getElementById('statusText').innerHTML='Modulul AR nu a putut fi încărcat.'"></script>
+</body>
+</html>

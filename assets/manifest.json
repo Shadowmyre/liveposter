@@ -1,9 +1,15 @@
 {
   "mindTarget": {
     "path": "./assets/targets/targets.mind",
-    "size": 2093780
+    "size": 667542
   },
   "targets": [
+    {
+      "video": "./assets/media/Avastar.mp4",
+      "image": "./assets/media/Avastar.jpg",
+      "videoSize": 16916381,
+      "imageSize": 337435
+    },
     {
       "video": "./assets/media/car.mp4",
       "image": "./assets/media/car.jpg",
